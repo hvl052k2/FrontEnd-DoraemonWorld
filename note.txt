@@ -1,0 +1,19 @@
+CẤU TRÚC CỦA DỰ ÁN
+
+my-project/
+├── node_modules/       # Thư viện cài đặt qua npm/yarn (không được sửa)
+├── public/             # Tài sản tĩnh (favicon, logo, file robots.txt)
+├── src/                # Nơi chứa toàn bộ "linh hồn" của code
+│   ├── assets/         # Hình ảnh, icon, font, file CSS thô
+│   ├── components/     # Các thành phần tái sử dụng (Button, Card, Navbar)
+│   ├── layouts/        # Bố cục chung (MainLayout, AuthLayout)
+│   ├── pages/          # Các trang cụ thể (Home, About, Contact)
+│   ├── services/       # Nơi gọi API (Axios, Fetch)
+│   ├── utils/          # Các hàm bổ trợ (Format ngày tháng, xử lý chuỗi)
+│   ├── hooks/          # (Nếu dùng React) Các logic xử lý riêng biệt
+│   ├── App.js (hoặc main.js) # File khởi tạo chính
+│   └── tailwind.css    # File cấu hình Tailwind base
+├── .gitignore          # Chỉ định các file không đẩy lên GitHub
+├── tailwind.config.js  # File cấu hình Tailwind (như bạn đã hỏi)
+├── package.json        # Quản lý các thư viện và lệnh chạy (scripts)
+└── README.md           # Hướng dẫn sử dụng dự án

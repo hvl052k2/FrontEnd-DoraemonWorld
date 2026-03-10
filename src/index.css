@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@keyframes float-cloud {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(100vw); }
+}
+
+.animate-cloud {
+  animation: float-cloud linear infinite;
+}
