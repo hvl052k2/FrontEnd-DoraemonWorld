@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import AuthPage from './pages/Auth/AuthPage';
-import MainPage from './pages/MainPage/MainPage';
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
