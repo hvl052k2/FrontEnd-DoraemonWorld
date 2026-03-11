@@ -1,6 +1,6 @@
-import { Volume2, VolumeX, Trash2, Edit3 } from 'lucide-react'; 
+import { Volume2, VolumeX, Trash2, Edit3, MessageCircle } from 'lucide-react';
 
-const CharacterCard = ({ name, image, description, onPlay, isActive, onDelete, onEdit }) => {
+const CharacterCard = ({ name, image, description, onPlay, isActive, onDelete, onEdit, onChat }) => {
     return (
         <div className={`relative bg-white rounded-[15px] overflow-hidden transition-all duration-500 text-center group
             ${isActive
@@ -10,6 +10,17 @@ const CharacterCard = ({ name, image, description, onPlay, isActive, onDelete, o
         >
             {/* NHÓM NÚT ĐIỀU KHIỂN GÓC TRÁI (Ẩn mặc định, hiện khi hover) */}
             <div className="absolute top-3 left-3 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onChat();
+                    }}
+                    className="p-2 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md cursor-pointer transition-transform hover:scale-110"
+                    title="Trò chuyện"
+                >
+                    <MessageCircle size={18} />
+                </button>
+
                 {/* Nút Sửa */}
                 <button
                     onClick={(e) => {
@@ -33,6 +44,8 @@ const CharacterCard = ({ name, image, description, onPlay, isActive, onDelete, o
                 >
                     <Trash2 size={18} />
                 </button>
+
+
             </div>
 
             {/* Nút Loa (Góc phải - Giữ nguyên logic cũ) */}

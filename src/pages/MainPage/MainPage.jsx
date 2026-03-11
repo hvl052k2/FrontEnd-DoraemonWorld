@@ -4,6 +4,7 @@ import { Button, message, Tag, Modal, Form, Input, Upload } from 'antd'; // Thê
 import { LogOut, Sparkles, Heart, PlusCircle, UploadCloud, Music, Image as ImageIcon } from 'lucide-react';
 import { getCharacters } from "../../services/handleAPIData";
 import axios from 'axios';
+import ChatWindow from "../../components/ChatWindow";
 
 // Khai báo địa chỉ Backend của bạn
 const BACKEND_URL = "http://localhost/BackEndDoraemonWorld";
@@ -16,6 +17,9 @@ const MainPage = ({ onLogout }) => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [editingCharacter, setEditingCharacter] = useState(null);
+
+    // State cho giao diện chat
+    const [selectedChatChar, setSelectedChatChar] = useState(null);
 
     // State cho Modal thêm nhân vật
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -212,7 +216,6 @@ const MainPage = ({ onLogout }) => {
     return (
         <div className="min-h-screen bg-[#e3f2fd] font-sans relative overflow-x-hidden">
 
-
             {/* Header: Thiết kế dạng cong mềm mại */}
             <header className="bg-[#0091ea] text-white py-8 px-6 md:px-20 flex justify-between items-center shadow-[0_4px_20px_rgba(0,145,234,0.4)] rounded-b-[40px] relative z-10">
                 <div className="flex items-center gap-4">
@@ -282,6 +285,8 @@ const MainPage = ({ onLogout }) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Danh sách các nhân vật */}
                     {loading ? (
                         <div className="text-center mt-20">Đang mở túi thần kỳ...</div>
                     ) : (
@@ -296,11 +301,17 @@ const MainPage = ({ onLogout }) => {
                                     onPlay={() => handlePlaySound(char.id, formatUrl(char.audio_src))}
                                     onDelete={() => handleDelete(char.id)}
                                     onEdit={() => handleEditClick(char)}
+                                    onChat={() => setSelectedChatChar(char)}
                                 />
                             );
                         })
                     )}
-
+                    {selectedChatChar && (
+                        <ChatWindow
+                            character={selectedChatChar}
+                            onClose={() => setSelectedChatChar(null)}
+                        />
+                    )}
                 </div>
             </main>
 
@@ -316,14 +327,14 @@ const MainPage = ({ onLogout }) => {
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name="image" label={editingCharacter?" Hình ảnh (Để trống nếu giữ nguyên)": "Hình ảnh (bắt buộc)"} rules={[{required: true}]}>
+                    <Form.Item name="image" label={editingCharacter ? " Hình ảnh (Để trống nếu giữ nguyên)" : "Hình ảnh (bắt buộc)"} rules={editingCharacter ? null : [{ required: true }]}>
                         <Upload.Dragger listType="picture" maxCount={1} beforeUpload={() => false}>
                             <p className="ant-upload-drag-icon"><ImageIcon size={24} /></p>
                             <p className="text-xs">Kéo thả ảnh mới vào đây</p>
                         </Upload.Dragger>
                     </Form.Item>
 
-                    <Form.Item name="audio" label={editingCharacter?" Âm thanh (Để trống nếu giữ nguyên)": "Âm thanh (không bắt buộc)"}>
+                    <Form.Item name="audio" label={editingCharacter ? " Âm thanh (Để trống nếu giữ nguyên)" : "Âm thanh (không bắt buộc)"}>
                         <Upload.Dragger maxCount={1} beforeUpload={(file) => validateAudio(file)} accept=".mp3">
                             <p className="ant-upload-drag-icon"><Music size={24} /></p>
                             <p className="text-xs">Kéo thả file MP3 mới</p>
